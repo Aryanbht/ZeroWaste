@@ -1,0 +1,119 @@
+.navbar {
+  position: sticky;
+  top: 16px;
+  z-index: 100;
+  width: calc(100% - 32px);
+  max-width: 1100px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  background: rgba(10, 15, 10, 0.5);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border-radius: 99px; /* Floating pill */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: all var(--transition);
+}
+
+.navbar:hover {
+  border-color: rgba(255,255,255,0.15);
+}
+
+.navbar-inner {
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.navbar-logo {
+  font-size: 1.6rem;
+  filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+.navbar-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.navbar-title .accent {
+  background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 99px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.nav-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-glass-hover);
+}
+
+.nav-btn:hover::after {
+  width: 40%;
+}
+
+.nav-btn.active {
+  color: var(--text-primary);
+  background: var(--bg-glass);
+}
+
+.nav-btn.active::after {
+  width: 60%;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    width: 100%;
+    top: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+  .navbar-title { display: none; }
+  .nav-btn { padding: 8px 14px; font-size: 0.85rem; }
+}
