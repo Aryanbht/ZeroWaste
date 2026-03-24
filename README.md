@@ -10,9 +10,7 @@ Zero-Waste Vision uses Google Gemini 2.5 Flash / 2.0 Flash to dynamically identi
 - **Real-time Insights:** Instant disposal tips, reuse suggestions, and carbon footprint data.
 - **Dual Mode:** Upload images or use your live camera for real-time scanning.
 
-## 🚀 Getting Started
 
-### Prerequisites
 - Python 3.10+
 - Node.js 18+
 - [Google Gemini API Key](https://aistudio.google.com/)
@@ -57,5 +55,4 @@ Zero-Waste Vision uses Google Gemini 2.5 Flash / 2.0 Flash to dynamically identi
 ## 🔒 Security Note
 **Never** commit your `.env` file. It has been added to `.gitignore` by default to protect your API key.
 
-## 📜 License
-MIT
+
