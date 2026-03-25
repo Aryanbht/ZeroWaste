@@ -8,10 +8,11 @@ Endpoints:
 
 import os
 import io
+import requests
 from typing import Optional
 from starlette.concurrency import run_in_threadpool
 
-from fastapi import FastAPI, File, UploadFile, WebSocket, WebSocketDisconnect, HTTPException
+from fastapi import FastAPI, File, UploadFile, WebSocket, WebSocketDisconnect, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
@@ -83,3 +84,49 @@ async def realtime_ws(websocket: WebSocket):
                 await websocket.send_json({"error": str(e)})
     except WebSocketDisconnect:
         pass
+
+
+@app.get("/api/youtube")
+async def youtube_suggestions(category: str = Query(..., description="Waste category to search for")):
+    """Return YouTube video suggestions for upcycling/DIY for the given waste category."""
+    api_key = os.getenv("YOUTUBE_API_KEY", "")
+    search_query = f"best out of waste {category} DIY upcycle reuse"
+    search_url = f"https://www.youtube.com/results?search_query={requests.utils.quote(search_query)}"
+
+    if not api_key or api_key == "your_youtube_api_key_here":
+        # Fallback: return search link only (no key needed)
+        return JSONResponse(content={
+            "videos": [],
+            "search_url": search_url,
+            "query": search_query,
+        })
+
+    try:
+        resp = requests.get(
+            "https://www.googleapis.com/youtube/v3/search",
+            params={
+                "part": "snippet",
+                "q": search_query,
+                "type": "video",
+                "maxResults": 4,
+                "key": api_key,
+                "relevanceLanguage": "en",
+                "safeSearch": "strict",
+            },
+            timeout=8,
+        )
+        resp.raise_for_status()
+        items = resp.json().get("items", [])
+        videos = [
+            {
+                "videoId": item["id"]["videoId"],
+                "title": item["snippet"]["title"],
+                "thumbnail": item["snippet"]["thumbnails"]["medium"]["url"],
+                "channel": item["snippet"]["channelTitle"],
+            }
+            for item in items
+            if item.get("id", {}).get("videoId")
+        ]
+        return JSONResponse(content={"videos": videos, "search_url": search_url, "query": search_query})
+    except Exception as e:
+        return JSONResponse(content={"videos": [], "search_url": search_url, "query": search_query})

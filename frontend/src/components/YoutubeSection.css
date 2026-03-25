@@ -1,0 +1,157 @@
+/* ─── YouTube Section ─────────────────────────────────────────── */
+.yt-section {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.yt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+
+.yt-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary, #f1f5f9);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.yt-see-all {
+  font-size: 0.75rem;
+  color: #ff4e4e;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.yt-see-all:hover { opacity: 0.75; }
+
+/* ─── Video Grid ──────────────────────────────────────────────── */
+.yt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.yt-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.yt-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255, 78, 78, 0.2);
+  border-color: rgba(255, 78, 78, 0.35);
+}
+
+.yt-thumb-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #111;
+  overflow: hidden;
+}
+.yt-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+.yt-card:hover .yt-thumb { transform: scale(1.04); }
+
+.yt-play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.yt-card:hover .yt-play-btn { opacity: 1; }
+
+.yt-info {
+  padding: 0.55rem 0.65rem;
+  flex: 1;
+}
+.yt-video-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-primary, #f1f5f9);
+  margin: 0 0 0.2rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+}
+.yt-channel {
+  font-size: 0.65rem;
+  color: var(--text-muted, #94a3b8);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Skeleton loading ────────────────────────────────────────── */
+.yt-skeletons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+.yt-skeleton {
+  height: 110px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.06) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─── Fallback (no API key) ───────────────────────────────────── */
+.yt-fallback {
+  background: rgba(255, 78, 78, 0.06);
+  border: 1px solid rgba(255, 78, 78, 0.2);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  text-align: center;
+}
+.yt-fallback-text {
+  font-size: 0.82rem;
+  color: var(--text-muted, #94a3b8);
+  margin: 0 0 0.75rem;
+}
+.yt-search-btn {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  background: #ff4e4e;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.15s;
+}
+.yt-search-btn:hover {
+  background: #e03a3a;
+  transform: translateY(-1px);
+}

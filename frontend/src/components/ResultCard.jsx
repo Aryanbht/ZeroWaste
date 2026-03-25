@@ -1,4 +1,5 @@
 import CategoryBadge from './CategoryBadge'
+import YoutubeSection from './YoutubeSection'
 import './ResultCard.css'
 
 export default function ResultCard({ result }) {
@@ -70,6 +71,9 @@ export default function ResultCard({ result }) {
           </div>
         </div>
       )}
+
+      {/* YouTube suggestions — only when garbage */}
+      {is_garbage && <YoutubeSection category={category} />}
     </div>
   )
 }
