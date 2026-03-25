@@ -30,7 +30,10 @@ app = FastAPI(
 # Allow React dev server on port 5173
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:5173", "http://127.0.0.1:5173",
+        "http://localhost:5174", "http://127.0.0.1:5174",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -130,3 +133,36 @@ async def youtube_suggestions(category: str = Query(..., description="Waste cate
         return JSONResponse(content={"videos": videos, "search_url": search_url, "query": search_query})
     except Exception as e:
         return JSONResponse(content={"videos": [], "search_url": search_url, "query": search_query})
+
+
+from pydantic import BaseModel
+
+class AskRequest(BaseModel):
+    question: str
+    category: str | None = None
+    item_description: str | None = None
+
+@app.post("/api/ask")
+async def ask_gemini(body: AskRequest):
+    """Answer a user's question about the waste item using Gemini."""
+    from classifier import _get_model
+    try:
+        model = _get_model()
+        context = ""
+        if body.category:
+            context += f"The item has been classified as: {body.category}. "
+        if body.item_description:
+            context += f"Description: {body.item_description}. "
+
+        prompt = (
+            f"You are a knowledgeable eco-expert assistant helping users understand waste management. "
+            f"{context}"
+            f"The user is asking: {body.question}\n\n"
+            f"Give a concise, friendly, and accurate answer in 2-4 sentences. "
+            f"Focus on practical, actionable advice when possible."
+        )
+        response = model.generate_content(prompt)
+        answer = response.text.strip()
+        return JSONResponse(content={"answer": answer})
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Gemini error: {str(e)}")

@@ -1,5 +1,6 @@
 import CategoryBadge from './CategoryBadge'
 import YoutubeSection from './YoutubeSection'
+import WasteQA from './WasteQA'
 import './ResultCard.css'
 
 export default function ResultCard({ result }) {
@@ -10,10 +11,10 @@ export default function ResultCard({ result }) {
 
   return (
     <div className={`result-card fade-in ${is_garbage ? 'garbage' : 'clean'}`}>
-      {/* Verdict banner */}
+      {/* Verdict */}
       <div className="verdict">
         <span className="verdict-icon">{is_garbage ? '🗑️' : '✅'}</span>
-        <div>
+        <div className="verdict-text">
           <div className="verdict-title">
             {is_garbage ? 'Garbage Detected' : 'Not Garbage'}
           </div>
@@ -35,11 +36,13 @@ export default function ResultCard({ result }) {
               width: `${pct}%`,
               background: is_garbage
                 ? 'linear-gradient(90deg, #f59e0b, #ef4444)'
-                : 'linear-gradient(90deg, #22c55e, #16a34a)',
+                : 'linear-gradient(90deg, var(--accent), var(--accent-cyan))',
             }}
           />
         </div>
       </div>
+
+      <div className="section-divider" />
 
       {/* Tips */}
       {tips_data && (
@@ -48,7 +51,7 @@ export default function ResultCard({ result }) {
 
           <div className="tips-grid">
             <div className="tips-group">
-              <h4>🗂️ Disposal / Handling</h4>
+              <div className="tips-group-title">🗂️ Disposal / Handling</div>
               <ul>
                 {tips_data.disposal.map((t, i) => (
                   <li key={i}>{t}</li>
@@ -56,7 +59,7 @@ export default function ResultCard({ result }) {
               </ul>
             </div>
             <div className="tips-group">
-              <h4>💡 Reuse / Upcycle</h4>
+              <div className="tips-group-title">💡 Reuse / Upcycle</div>
               <ul>
                 {tips_data.reuse.map((t, i) => (
                   <li key={i}>{t}</li>
@@ -72,8 +75,13 @@ export default function ResultCard({ result }) {
         </div>
       )}
 
-      {/* YouTube suggestions — only when garbage */}
+      <div className="section-divider" />
+
+      {/* YouTube */}
       {is_garbage && <YoutubeSection category={category} />}
+
+      {/* Ask Gemini */}
+      <WasteQA category={category} itemDescription={tips_data?.description} />
     </div>
   )
 }

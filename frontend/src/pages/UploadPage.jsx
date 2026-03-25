@@ -11,6 +11,7 @@ export default function UploadPage() {
   const [error, setError] = useState(null)
   const [dragging, setDragging] = useState(false)
   const fileInputRef = useRef(null)
+  const resultRef = useRef(null)
 
   const handleFile = (f) => {
     if (!f || !f.type.startsWith('image/')) {
@@ -50,6 +51,8 @@ export default function UploadPage() {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       setResult(data)
+      // Smooth scroll to results
+      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
     } catch (err) {
       const msg = err.response?.data?.detail || err.message || 'Classification failed.'
       setError(msg)
@@ -64,78 +67,72 @@ export default function UploadPage() {
     setResult(null)
     setError(null)
     if (fileInputRef.current) fileInputRef.current.value = ''
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
     <main className="page">
-      <header className="page-header">
+      {/* Hero Header */}
+      <header className="page-header fade-in">
         <h1>Waste Image Analyser</h1>
-        <p>Upload any photo. Our AI will determine if it contains garbage and guide you on proper disposal.</p>
+        <p>Upload any photo — our AI identifies the item, suggests disposal methods, and answers your questions.</p>
       </header>
 
-      <div className="upload-layout">
-        {/* Left: Drop zone + preview */}
-        <div className="upload-panel">
-          {!preview ? (
-            <div
-              className={`drop-zone ${dragging ? 'drag-over' : ''}`}
-              onDrop={onDrop}
-              onDragOver={onDragOver}
-              onDragLeave={onDragLeave}
-              onClick={() => fileInputRef.current?.click()}
-            >
-              <div className="drop-icon">📁</div>
-              <p className="drop-title">Drop your image here</p>
-              <p className="drop-sub">or click to browse · PNG, JPG, WEBP up to 20 MB</p>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={onInputChange}
-                style={{ display: 'none' }}
-                id="file-input"
-              />
+      {/* Upload / Preview area */}
+      <div className="upload-hero fade-in">
+        {!preview ? (
+          <div
+            className={`drop-zone ${dragging ? 'drag-over' : ''}`}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            onDragLeave={onDragLeave}
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <div className="drop-icon">📁</div>
+            <p className="drop-title">Drop your image here</p>
+            <p className="drop-sub">or click to browse · PNG, JPG, WEBP up to 20 MB</p>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={onInputChange}
+              style={{ display: 'none' }}
+              id="file-input"
+            />
+          </div>
+        ) : (
+          <div className="preview-hero">
+            <img src={preview} alt="Preview" className="preview-image-hero" />
+            <div className="preview-actions-hero">
+              <button className="btn btn-primary" onClick={classify} disabled={loading} id="classify-btn">
+                {loading ? '🔍 Analysing…' : '🔍 Classify Waste'}
+              </button>
+              <button className="btn btn-ghost" onClick={reset} disabled={loading} id="reset-btn">
+                🔄 New Image
+              </button>
             </div>
-          ) : (
-            <div className="preview-container">
-              <img src={preview} alt="Preview" className="preview-image" />
-              <div className="preview-actions">
-                <button className="btn btn-primary" onClick={classify} disabled={loading} id="classify-btn">
-                  {loading ? '🔍 Analysing…' : '🔍 Classify Waste'}
-                </button>
-                <button className="btn btn-ghost" onClick={reset} disabled={loading} id="reset-btn">
-                  🔄 New Image
-                </button>
-              </div>
-            </div>
-          )}
+          </div>
+        )}
 
-          {/* Error */}
-          {error && (
-            <div className="error-box fade-in">
-              ⚠️ {error}
-            </div>
-          )}
-        </div>
-
-        {/* Right: Result */}
-        <div className="result-panel">
-          {loading && (
-            <div className="loading-state fade-in">
-              <div className="spinner" />
-              <p>AI is analysing your image…</p>
-            </div>
-          )}
-          {!loading && result && <ResultCard result={result} />}
-          {!loading && !result && !error && (
-            <div className="placeholder-state">
-              <div className="placeholder-icon">🌍</div>
-              <p>Your classification results will appear here</p>
-              <p className="placeholder-sub">Upload an image to get started</p>
-            </div>
-          )}
-        </div>
+        {error && (
+          <div className="error-box fade-in">⚠️ {error}</div>
+        )}
       </div>
+
+      {/* Loading state */}
+      {loading && (
+        <div className="loading-hero fade-in">
+          <div className="spinner" />
+          <p>AI is analysing your image…</p>
+        </div>
+      )}
+
+      {/* Results — full width below */}
+      {!loading && result && (
+        <div className="results-section fade-in" ref={resultRef}>
+          <ResultCard result={result} />
+        </div>
+      )}
     </main>
   )
 }
