@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import client from '../api/client'
 import './YoutubeSection.css'
 
 export default function YoutubeSection({ category }) {
@@ -9,9 +10,8 @@ export default function YoutubeSection({ category }) {
     if (!category) return
     setLoading(true)
     setData(null)
-    fetch(`/api/youtube?category=${encodeURIComponent(category)}`)
-      .then(r => r.json())
-      .then(d => { setData(d); setLoading(false) })
+    client.get(`/api/youtube?category=${encodeURIComponent(category)}`)
+      .then(r => { setData(r.data); setLoading(false) })
       .catch(() => setLoading(false))
   }, [category])
 
