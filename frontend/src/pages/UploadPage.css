@@ -1,42 +1,36 @@
-/* === Upload Page — Full Width Stacked Layout === */
+/* === Upload Page === */
 
-/* Hero upload zone */
+/* Hero upload zone — full width on mobile */
 .upload-hero {
-  max-width: 780px;
+  width: 100%;
   margin: 0 auto 32px;
-}
-
-@media (min-width: 768px) {
-  .upload-hero { margin-bottom: 48px; }
 }
 
 /* Drop zone */
 .drop-zone {
   position: relative;
   background: rgba(255, 255, 255, 0.02);
-  border: 1.5px dashed rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  padding: 40px 24px; /* Reduced from 80px 48px */
+  border: 1.5px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 48px 24px;
   text-align: center;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  min-height: 220px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
-}
-
-@media (min-width: 768px) {
-  .drop-zone { padding: 80px 48px; min-height: 280px; }
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .drop-zone::before {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 24px;
+  border-radius: 16px;
   background: radial-gradient(circle at center, rgba(124,58,237,0.06) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.35s ease;
@@ -45,50 +39,48 @@
 .drop-zone:hover,
 .drop-zone.drag-over {
   border-color: var(--accent);
-  box-shadow: 0 0 40px rgba(124,58,237,0.15), 0 0 80px rgba(236,72,153,0.08);
-  transform: translateY(-3px);
+  box-shadow: 0 0 40px rgba(124,58,237,0.15);
+  transform: translateY(-2px);
 }
 
 .drop-zone:hover::before,
-.drop-zone.drag-over::before {
-  opacity: 1;
-}
+.drop-zone.drag-over::before { opacity: 1; }
 
 .drop-icon {
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
   z-index: 1;
   transition: transform 0.3s;
 }
 
-.drop-zone:hover .drop-icon {
-  transform: scale(1.1) translateY(-6px);
-}
+.drop-zone:hover .drop-icon { transform: scale(1.1) translateY(-4px); }
 
 .drop-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 4vw, 1.4rem);
   font-weight: 600;
   color: var(--text-primary);
   z-index: 1;
 }
 
 .drop-sub {
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 3vw, 0.95rem);
   color: var(--text-secondary);
   z-index: 1;
 }
 
 /* Preview hero */
 .preview-hero {
-  border-radius: 24px;
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .preview-image-hero {
   width: 100%;
-  max-height: 480px;
+  max-height: 400px;
   object-fit: contain;
   display: block;
   background: #000;
@@ -96,21 +88,29 @@
 
 .preview-actions-hero {
   display: flex;
-  gap: 16px;
-  padding: 20px 24px;
+  gap: 12px;
+  padding: 16px;
   background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.preview-actions-hero .btn {
+  flex: 1;
+  min-width: 120px;
+  max-width: 200px;
   justify-content: center;
 }
 
 /* Error box */
 .error-box {
   margin-top: 16px;
-  padding: 16px 20px;
+  padding: 14px 18px;
   background: rgba(255, 42, 95, 0.08);
   border: 1px solid rgba(255, 42, 95, 0.2);
-  border-radius: 14px;
+  border-radius: 12px;
   color: #ffa1b5;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 /* Loading hero */
@@ -119,20 +119,21 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 60px 0;
+  padding: 48px 0;
   text-align: center;
 }
 
 .loading-hero p {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--text-secondary);
   letter-spacing: 0.05em;
   animation: pulse 2s infinite;
 }
 
-/* Results section */
+/* Results section — full width on mobile */
 .results-section {
-  max-width: 860px;
-  margin: 0 auto 60px;
+  width: 100%;
+  margin: 0 auto 48px;
+  box-sizing: border-box;
 }

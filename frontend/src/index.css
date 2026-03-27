@@ -146,12 +146,13 @@ a { color: inherit; text-decoration: none; }
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  cursor: none;
+  cursor: pointer; /* Changed from 'none' to 'pointer' for mobile */
   transition: all var(--transition);
   outline: none;
   letter-spacing: 0.02em;
   position: relative;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn::after {
@@ -198,11 +199,17 @@ a { color: inherit; text-decoration: none; }
 .page {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px 16px 80px; /* Reduced from 60px 24px */
+  padding: 32px 12px 60px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-@media (min-width: 768px) {
-  .page { padding: 60px 24px 80px; }
+@media (min-width: 600px) {
+  .page { padding: 48px 20px 80px; }
+}
+
+@media (min-width: 1024px) {
+  .page { padding: 60px 32px 80px; }
 }
 
 .page-header {
