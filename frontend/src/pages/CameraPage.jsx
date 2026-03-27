@@ -39,7 +39,11 @@ export default function CameraPage() {
     }
 
     // 2. Open WebSocket
-    const wsUrl = `ws://localhost:8000/api/ws/realtime`
+    const isProd = import.meta.env.PROD
+    const wsHost = isProd ? 'zerowaste-8dxa.onrender.com' : 'localhost:8000'
+    const wsProtocol = isProd ? 'wss' : 'ws'
+    const wsUrl = `${wsProtocol}://${wsHost}/api/ws/realtime`
+
     const ws = new WebSocket(wsUrl)
     wsRef.current = ws
 
@@ -59,7 +63,7 @@ export default function CameraPage() {
     }
 
     ws.onerror = () => {
-      setError('WebSocket connection failed. Make sure the backend server is running on port 8000.')
+      setError(`WebSocket connection failed. Make sure the backend is running at ${wsHost}.`)
       setWsStatus('error')
       stopCamera()
     }
