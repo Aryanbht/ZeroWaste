@@ -1,7 +1,11 @@
 .qa-section {
-  padding: 28px 32px;
+  padding: 20px 20px; /* Reduced from 28px 32px */
   border-top: 1px solid var(--border);
   background: rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 768px) {
+  .qa-section { padding: 28px 32px; }
 }
 
 .qa-header {
@@ -84,12 +88,16 @@
 }
 
 .qa-bubble {
-  max-width: 85%;
-  padding: 12px 16px;
+  max-width: 90%; /* Increased from 85% for mobile */
+  padding: 10px 14px; /* Reduced from 12px 16px */
   border-radius: 18px;
-  font-size: 0.95rem;
+  font-size: 0.9rem; /* Reduced from 0.95rem */
   line-height: 1.55;
   white-space: pre-wrap;
+}
+
+@media (min-width: 768px) {
+  .qa-bubble { max-width: 85%; padding: 12px 16px; font-size: 0.95rem; }
 }
 
 .qa-message.user .qa-bubble {

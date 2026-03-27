@@ -97,27 +97,37 @@
 }
 
 .tips-description {
-  font-size: 1.05rem;
+  font-size: clamp(0.9rem, 3vw, 1.05rem);
   color: var(--text-secondary);
   line-height: 1.65;
-  margin-bottom: 28px;
-  padding: 18px 22px;
+  margin-bottom: 24px;
+  padding: 14px 18px;
   background: rgba(255, 255, 255, 0.02);
   border-left: 3px solid var(--accent);
   border-radius: 0 12px 12px 0;
 }
 
+@media (min-width: 768px) {
+  .tips-description { padding: 18px 22px; margin-bottom: 28px; }
+}
+
 .tips-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr;
+  gap: 16px;
   margin-bottom: 24px;
 }
 
-@media (max-width: 700px) {
-  .tips-grid { grid-template-columns: 1fr; }
-  .verdict, .tips-section, .confidence-section { padding-left: 24px; padding-right: 24px; }
-  .section-divider { margin: 0 24px; }
+@media (min-width: 640px) {
+  .tips-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+}
+
+@media (max-width: 639.98px) {
+  .verdict, .tips-section, .confidence-section { padding-left: 20px; padding-right: 20px; }
+  .section-divider { margin: 0 20px; }
+  .verdict { padding-top: 28px; padding-bottom: 28px; }
+  .verdict-icon { font-size: 3rem; }
+  .verdict-title { font-size: 1.5rem; }
 }
 
 .tips-group-title {

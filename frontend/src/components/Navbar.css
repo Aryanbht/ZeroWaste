@@ -84,7 +84,14 @@
 }
 
 @media (max-width: 600px) {
-  .navbar { width: 100%; top: 0; border-radius: 0; }
+  .navbar { width: calc(100% - 24px); top: 12px; }
+  .navbar-inner { padding: 0 16px; height: 56px; }
+  .navbar-logo { font-size: 1.3rem; }
   .navbar-title { display: none; }
-  .nav-btn { padding: 8px 12px; font-size: 0.85rem; }
+  .nav-btn { padding: 8px 14px; font-size: 0.8rem; gap: 6px; }
+  .nav-btn span { display: none; } /* Hide text, show only icons if icons exist */
+}
+
+@media (max-width: 380px) {
+  .nav-btn { padding: 8px 10px; }
 }

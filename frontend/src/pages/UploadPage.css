@@ -3,7 +3,11 @@
 /* Hero upload zone */
 .upload-hero {
   max-width: 780px;
-  margin: 0 auto 40px;
+  margin: 0 auto 32px;
+}
+
+@media (min-width: 768px) {
+  .upload-hero { margin-bottom: 48px; }
 }
 
 /* Drop zone */
@@ -11,17 +15,21 @@
   position: relative;
   background: rgba(255, 255, 255, 0.02);
   border: 1.5px dashed rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
-  padding: 80px 48px;
+  border-radius: 20px;
+  padding: 40px 24px; /* Reduced from 80px 48px */
   text-align: center;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  min-height: 280px;
+  min-height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .drop-zone { padding: 80px 48px; min-height: 280px; }
 }
 
 .drop-zone::before {
