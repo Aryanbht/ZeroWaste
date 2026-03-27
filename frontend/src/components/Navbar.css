@@ -1,9 +1,9 @@
 .navbar {
   position: sticky;
   top: 16px;
-  z-index: 100;
+  z-index: 1000;
   width: calc(100% - 40px);
-  max-width: 1100px;
+  max-width: 1250px;
   left: 50%;
   transform: translateX(-50%);
   margin: 0 auto;
