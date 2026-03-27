@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
-import axios from 'axios'
+import client from '../api/client'
 import ResultCard from '../components/ResultCard'
 import './UploadPage.css'
 
@@ -47,7 +47,7 @@ export default function UploadPage() {
     try {
       const formData = new FormData()
       formData.append('file', file)
-      const { data } = await axios.post('/api/classify', formData, {
+      const { data } = await client.post('/api/classify', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       setResult(data)

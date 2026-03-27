@@ -27,13 +27,16 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Allow React dev server on port 5173
+# Allow production origins (Firebase Hosting) and local dev
+CORSMiddleware_origins = [
+    "http://localhost:5173", "http://127.0.0.1:5173",
+    "http://localhost:5174", "http://127.0.0.1:5174",
+    "https://*.web.app", "https://*.firebaseapp.com" # Wildcard for Firebase Hosting
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173", "http://127.0.0.1:5173",
-        "http://localhost:5174", "http://127.0.0.1:5174",
-    ],
+    allow_origins=["*"], # For production simplicity, or specify allowed origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

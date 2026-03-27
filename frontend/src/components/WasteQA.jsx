@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import client from '../api/client'
 import './WasteQA.css'
 
 export default function WasteQA({ category, itemDescription }) {
@@ -21,14 +22,13 @@ export default function WasteQA({ category, itemDescription }) {
     setLoading(true)
 
     try {
-      const res = await fetch('/api/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, category, item_description: itemDescription }),
+      const { data } = await client.post('/api/ask', {
+        question,
+        category,
+        item_description: itemDescription,
       })
-      const data = await res.json()
       setMessages(prev => [...prev, { role: 'ai', text: data.answer || 'Sorry, I could not get a response.' }])
-    } catch {
+    } catch (err) {
       setMessages(prev => [...prev, { role: 'ai', text: 'Connection error. Please try again.' }])
     } finally {
       setLoading(false)
