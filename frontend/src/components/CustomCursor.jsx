@@ -8,6 +8,9 @@ export default function CustomCursor() {
     const el = spotlightRef.current
     if (!el) return
 
+    // Disable on touch devices
+    if (window.matchMedia('(pointer: coarse)').matches) return
+
     const onMove = (e) => {
       el.style.background = `radial-gradient(
         600px circle at ${e.clientX}px ${e.clientY}px,

@@ -61,7 +61,16 @@
   padding: 0;
 }
 
-html { scroll-behavior: smooth; }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
@@ -69,7 +78,6 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 /* Ambient glow background */

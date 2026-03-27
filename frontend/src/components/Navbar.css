@@ -83,15 +83,16 @@
   border: 1px solid rgba(124,58,237,0.4);
 }
 
-@media (max-width: 600px) {
-  .navbar { width: calc(100% - 24px); top: 12px; }
-  .navbar-inner { padding: 0 16px; height: 56px; }
-  .navbar-logo { font-size: 1.3rem; }
+@media (max-width: 800px) {
+  .navbar { width: calc(100% - 32px); top: 12px; }
+  .navbar-inner { padding: 0 12px; height: 52px; }
+  .navbar-logo { font-size: 1.2rem; }
   .navbar-title { display: none; }
-  .nav-btn { padding: 8px 14px; font-size: 0.8rem; gap: 6px; }
-  .nav-btn span { display: none; } /* Hide text, show only icons if icons exist */
+  .nav-btn { padding: 6px 12px; font-size: 0.75rem; gap: 4px; }
+  .nav-btn span { display: none; } 
 }
 
-@media (max-width: 380px) {
-  .nav-btn { padding: 8px 10px; }
+@media (max-width: 400px) {
+  .navbar { width: calc(100% - 16px); top: 8px; }
+  .nav-btn { padding: 6px 8px; }
 }
